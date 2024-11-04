@@ -5,7 +5,7 @@ import TableHeadRow from "../TableHeadRow/tableHeadRow";
 const Table = ({ tableHeader, tableBody, table }: TableProps) => {
   return (
     <table className="border text-left shadow-2xl w-[80%] rounded mx-auto">
-      <thead className="bg-white">
+      <thead className="bg-white hidden md:block">
         {tableHeader.map((headerGroup) => (
           <TableHeadRow
             HeaderGroup={headerGroup}
@@ -16,21 +16,20 @@ const Table = ({ tableHeader, tableBody, table }: TableProps) => {
       </thead>
       <tbody className="">
         {tableBody.rows.map((row, index) => (
-          <TableBodyRow row={row} id={row.id} key={row.id} index={index} />
+          <TableBodyRow table={table} row={row} id={row.id} key={row.id} index={index} />
         ))}
       </tbody>
-      <div></div>
       <div className="px-3 flex justify-between relative">
         {table.getCanPreviousPage() ? (
-          <button className=" top-0" onClick={() => table.previousPage()}>
-            prev
+          <button className="font-semibold p-1" onClick={() => table.previousPage()}>
+            Previous
           </button>
         ) : (
           <span></span>
         )}
         {table.getCanNextPage() ? (
-          <button className=" top-0" onClick={() => table.nextPage()}>
-            next
+          <button className="font-semibold p-1" onClick={() => table.nextPage()}>
+            Next
           </button>
         ) : (
           <span></span>

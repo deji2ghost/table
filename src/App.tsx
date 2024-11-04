@@ -9,6 +9,8 @@ import {
 } from "@tanstack/react-table";
 import Table from "./components/Table/table";
 import { dataProps } from "./data/data";
+import { FaFaceGrinTongueSquint, FaNewspaper, FaSackDollar } from "react-icons/fa6";
+import { BiLineChartDown } from "react-icons/bi";
 
 function App() {
   const [error, setError] = useState<string | null>(null);
@@ -38,28 +40,56 @@ function App() {
 
   const columns = [
     columnHelper.accessor("name", {
-      cell: (info) => info.getValue(),
-      header: () => <span>Coin</span>,
+      cell: ({ row }) => {
+        const item = row.original
+
+        return (<div>
+            <h1 className="flex items-center gap-1 md:hidden"><FaSackDollar /> <span>Coin</span></h1>
+            <h1>{item.name}</h1>
+          </div>)
+    },
+      header: () => <span className="flex items-center gap-1"><FaSackDollar /> <span>Coin</span></span>,
     }),
     columnHelper.accessor("symbol", {
-      cell: (info) => info.getValue(),
-      header: () => <span>Code</span>,
+      cell: ({ row }) => {
+        const item = row.original
+
+        return (
+        <div>
+          <h1 className="flex items-center gap-1 md:hidden"><FaNewspaper /> <span>Code</span></h1>
+          <h1>{item.symbol}</h1>
+        </div>)
+    },
+      header: () => <span className="flex items-center gap-1"><FaNewspaper /> <span>Code</span></span>,
     }),
     columnHelper.accessor("price_usd", {
-      cell: (info) => <>${info.getValue()}</>,
-      header: () => <span>Price</span>,
+      cell: ({ row }) => {
+        const item = row.original
+
+        return (
+          <div>
+            <h1 className="flex items-center gap-1 md:hidden"><FaFaceGrinTongueSquint /> <span>Price</span></h1>
+            <h1>{item.price_usd}</h1>
+          </div>
+      )
+    },
+      header: () => <span className="flex items-center gap-1"><FaFaceGrinTongueSquint /> <span>Price</span></span>,
     }),
     columnHelper.accessor("tsupply", {
-      cell: (info) => (
-        <>
-          {info.getValue()} {info.row.original.symbol}
-        </>
-      ),
-      header: () => <span>Total Supply</span>,
+      cell: ({ row }) => {
+        const item = row.original
+
+        return (
+        <div>
+          <h1 className="flex items-center gap-1 md:hidden"><BiLineChartDown /><span>Total Supply</span></h1>
+          <h1>{item.tsupply} {item.symbol}</h1>
+          </div>)
+    },
+      header: () => <span className="flex items-center gap-1"><BiLineChartDown /><span>Total Supply</span></span>,
     }),
   ];
 
-  const table = useReactTable({
+  const table = useReactTable<dataProps>({
     data: data && data,
     columns,
     getCoreRowModel: getCoreRowModel(),
@@ -90,7 +120,7 @@ function App() {
   }
 
   return (
-    <div className="h-screen bg-[#f3f3f3] flex justify-center items-center">
+    <div className="min-h-screen bg-[#f3f3f3] flex justify-center items-center">
       <>
         <Table
           tableHeader={table.getHeaderGroups()}
