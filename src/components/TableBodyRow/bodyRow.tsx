@@ -3,7 +3,7 @@ import { HeadRowProps } from "../../data/data";
 const BodyRow = ({ id, element}: HeadRowProps) => {
   return (
     <>
-    <td key={id} className="md:px-3 w-full flex flex-col">
+    <td key={id} className="px-2 py-1 w-full flex flex-col">
     
       <p>{element}</p>
     </td>

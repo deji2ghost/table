@@ -4,7 +4,7 @@ import TableHeadRow from "../TableHeadRow/tableHeadRow";
 
 const Table = ({ tableHeader, tableBody, table }: TableProps) => {
   return (
-    <table className="border text-left shadow-2xl w-[80%] rounded mx-auto">
+    <table className="border text-left shadow-2xl w-[95%] md:w-[60%] rounded mx-auto">
       <thead className="bg-white hidden md:block">
         {tableHeader.map((headerGroup) => (
           <TableHeadRow
@@ -19,7 +19,7 @@ const Table = ({ tableHeader, tableBody, table }: TableProps) => {
           <TableBodyRow table={table} row={row} id={row.id} key={row.id} index={index} />
         ))}
       </tbody>
-      <div className="px-3 flex justify-between relative">
+      <div className="px-1 flex justify-between relative">
         {table.getCanPreviousPage() ? (
           <button className="font-semibold p-1" onClick={() => table.previousPage()}>
             Previous
